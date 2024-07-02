@@ -1,106 +1,117 @@
 import java.util.Scanner;
 
-class Stack {
-    int top = -1;
-    int size = 0;
-    int[] stack;
-    
-    public Stack(int size) {
-        this.size = size;
-        stack = new int[size];
+class Stackof {
+    Scanner sc = new Scanner(System.in);
+    int max;
+    int[] s;
+    int top = 0;
+
+    public Stackof(int max) {
+        this.max = max;
+        s = new int[max];
     }
 
-    public void push(int num) {
-        if(top >= size-1) {
-            System.out.println("Stack Overflow");
-            return;
+    public void push(int data) {
+        if (top >= max) {
+            System.out.println("Stack overflow");
+        } else {
+            s[top] = data;
+            top++;
         }
-        top++;
-        stack[top] = num;
-        System.out.println("Element inserted succesfully");
-        display();
     }
 
     public int pop() {
-        if(top<0) {
-            System.out.println("Stack Underflow");
+        if (top <= 0) {
+            System.out.println("Stack underflow");
             return 0;
+        } else {
+            top--;
+            return s[top];
         }
-        top--;
-        display();
-        return stack[top+1];
     }
 
-    public int peep(int i) {
-        if(top-i+1 < 0) {
-            System.out.println("Stack Underflow");
+    public int peep() {
+        System.out.println("Enter index to peep:");
+        int idx = sc.nextInt();
+        if (top - idx <= 0) {
+            System.out.println("Stack underflow");
             return 0;
+        } else {
+            return s[top - idx - 1];
         }
-        display();
-        return stack[top-i+1];
     }
 
-    public void change(int num, int i) {
-        if(top-i+1 < 0) {
-            System.out.println("Stack Underflow");
-            return;
+    public void change() {
+        System.out.println("Enter index to change:");
+        int idx = sc.nextInt();
+        System.out.println("Enter new value:");
+        int x = sc.nextInt();
+        if (top - idx <= 0) {
+            System.out.println("Stack underflow");
+        } else {
+            s[top - idx - 1] = x;
         }
-        stack[top-i+1] = num;
-        System.out.println("Element changed succesfully");
-        display();
     }
 
     public void display() {
-        for(int i=top; i>=0; i--) {
-            System.out.println("stack["+i+"] = "+stack[i]);
+        if (top == 0) {
+            System.out.println("Stack is empty");
+        } else {
+            for (int i = top - 1; i >= 0; i--) {
+                System.out.println("Stack element [" + i + "] = " + s[i]);
+            }
         }
     }
 }
 
-public class Lab7_38 {
+public class StacksOpre {
     public static void main(String[] args) {
+        Stackof stack = new Stackof(5);
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the size of the stack: ");
-        int size = sc.nextInt();
-        Stack stack = new Stack(size);
-        int choice;
-        do{
-            System.out.println();
-            System.out.println("Enter 1 to insert an element\n2 to delete an element from the top\n3 to view an element at any position\nEnter 4 to change element from any position\nEnter 5 to display the stack\nEnter -1 to terminate the menu: ");
+        int choice = 0;
+
+        while (choice != 5) {
+            System.out.println("\nChoose operation:");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peep");
+            System.out.println("4. Change");
+            System.out.println("5. Exit");
             choice = sc.nextInt();
-            switch(choice) {
+
+            switch (choice) {
                 case 1:
-                    System.out.println("Enter an element to insert: ");
-                    int num = sc.nextInt();
-                    stack.push(num);
-                    break;
-
-                case 2:
-                    System.out.println("Deleted Element is "+stack.pop());
-                    break;
-
-                case 3:
-                    System.out.println("Enter the position from top to view the element: ");
-                    int i = sc.nextInt();
-                    System.out.println("Element at position "+i+" is "+stack.peep(i));
-                    break;
-
-                case 4:
-                    System.out.println("Enter the position to change the element: ");
-                    int pos = sc.nextInt();
-                    System.out.println("Enter an element to update at possition "+pos+": ");
-                    int n = sc.nextInt();
-                    stack.change(n, pos);
-                    break;
-
-                case 5:
+                    System.out.println("Enter value to push:");
+                    int value = sc.nextInt();
+                    stack.push(value);
                     stack.display();
                     break;
-
+                case 2:
+                    int poppedValue = stack.pop();
+                    if (poppedValue != 0) {
+                        System.out.println("Popped value: " + poppedValue);
+                    }
+                    stack.display();
+                    break;
+                case 3:
+                    int peepedValue = stack.peep();
+                    if (peepedValue != 0) {
+                        System.out.println("Peeped value: " + peepedValue);
+                    }
+                    stack.display();
+                    break;
+                case 4:
+                    stack.change();
+                    stack.display();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    break;
                 default:
-                    System.out.println("Invalid Input");
+                    System.out.println("Invalid choice. Please try again.");
             }
-        } while(choice != -1);
+        }
+
         sc.close();
     }
 }
