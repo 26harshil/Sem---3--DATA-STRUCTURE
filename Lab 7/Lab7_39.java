@@ -1,66 +1,84 @@
 import java.util.Scanner;
 
-class Stack {
-    int top = -1;
-    int size = 0;
-    char[] stack;
-    
-    public Stack(int size) {
-        this.size = size;
-        stack = new char[size];
+class Stackof {
+    int max;
+    Character[] s;
+    int top = 0;
+
+    public Stackof(int max) {
+        this.max = max;
+        s = new Character[max];
     }
 
-    public void push(char ch) {
-        if(top >= size-1) {
-            System.out.println("Stack Overflow");
-            return;
+    public void push(Character data) {
+        if (top >= max) {
+            System.out.println("Stack overflow");
+        } else {
+            s[top] = data;
+            top++;
         }
-        top++;
-        stack[top] = ch;
     }
 
-    public char pop() {
-        if(top<0) {
-            System.out.println("Stack Underflow");
-            return 0;
+    public Character pop() {
+        if (top <= 0) {
+            System.out.println("Stack underflow");
+            return null;
+        } else {
+            top--;
+            return s[top];
         }
-        top--;
-        return stack[top+1];
+    }
+
+    public Character peep(int i) {
+        if (i < 0 || i >= top) {
+            System.out.println("Invalid peep index");
+            return null;
+        } else {
+            return s[top - i - 1];
+        }
+    }
+
+    public void display() {
+        if (top == 0) {
+            System.out.println("Stack is empty");
+        } else {
+            for (int i = top - 1; i >= 0; i--) {
+                System.out.println("Stack element [" + i + "] = " + s[i]);
+            }
+        }
+    }
+
+    public boolean same(String input) {
+        int length = input.length();
+        int mid = length / 2;
+
+        for (int i = 0; i < mid; i++) {
+            push(input.charAt(i));
+        }
+        int start = (length % 2 == 0) ? mid : mid + 1;
+
+        for (int i = start; i < length; i++) {
+            Character ch = pop();
+            if (ch == null || ch != input.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
-public class Lab7_39 {
+public class Stacksofmainrecognize {
     public static void main(String[] args) {
+        Stackof st = new Stackof(100);
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter a string: ");
-        String str = sc.next().toLowerCase();
-        if(str.length() % 2 == 0) {
-            System.out.println("Invalid String");
-            return;
+
+        System.out.println("Enter a string to check if it is a palindrome:");
+        String s1 = sc.next().trim();
+
+        if (st.same(s1)) {
+            System.out.println("The string is a palindrome");
+        } else {
+            System.out.println("The string is not a palindrome");
         }
-        int temp = str.length()/2;
-        if(str.charAt(temp) != 'c') {
-            System.out.println("Invalid String");
-            return;
-        }
-        int len = str.length()/2;
-        Stack stack = new Stack(len);
-        int index = 0;
-        while(index < len) {
-            stack.push(str.charAt(index));
-            index++;
-        }
-        index++;
-        
-        while(index < str.length()) {
-            char ch = stack.pop();
-            if(str.charAt(index) != ch) {
-                System.out.println("Invalid String");
-                return;
-            }
-            index++;
-        }
-        System.out.println("Valid String");
-        sc.close();
     }
 }
