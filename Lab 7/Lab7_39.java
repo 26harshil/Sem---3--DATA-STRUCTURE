@@ -67,7 +67,7 @@ class Stackof {
     }
 }
 
-public class Stacksofmainrecognize {
+public class LAb7_39 {
     public static void main(String[] args) {
         Stackof st = new Stackof(100);
         Scanner sc = new Scanner(System.in);
@@ -76,9 +76,9 @@ public class Stacksofmainrecognize {
         String s1 = sc.next().trim();
 
         if (st.same(s1)) {
-            System.out.println("The string is a palindrome");
+            System.out.println("The string is a valid");
         } else {
-            System.out.println("The string is not a palindrome");
+            System.out.println("The string is not a valid");
         }
     }
 }
