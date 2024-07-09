@@ -72,7 +72,7 @@ public class LAb7_39 {
         Stackof st = new Stackof(100);
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter a string to check if it is a palindrome:");
+        System.out.println("Enter a string ");
         String s1 = sc.next().trim();
 
         if (st.same(s1)) {
