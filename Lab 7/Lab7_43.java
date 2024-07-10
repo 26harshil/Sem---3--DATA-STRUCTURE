@@ -1,36 +1,39 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-import java.util.*;
 
 class Codechef
 {
+    public static void main(String[] args) {
+        throws java.lang.Exception
 
-    public static void main(String[] args) throws java.lang.Exception
-    {
-        Scanner sc = new Scanner(System.in);
-        // your code goes here
-        Stack < Character > s = new Stack < Character > ();
-        String n = sc.next().trim();
-        StringBuilder str = new StringBuilder(n);
+        Stack < Character > s = new Stack < > ();
 
-        for (int i = 0; i < n.length(); i++) {
+        {
+            // your code goes here
+            String n = sc.next();
+            StringBuilder sb = new StringBuilder(n);
+           
+            for (int i = 0; i < n.length(); i++) {
 
-            if (i == 'a' || i == 'e' || i == 'i' || i == 'o' || i == 'u') {
-                if (i == 0) {
-                    continue;
+               if (n.charAt(i) == 'a' || n.charAt(i) == 'i' || n.charAt(i) == 'o' || n.charAt(i) == 'e' || n.charAt(i) == 'u') {
+                    
+                   for(int k=0; k<i; k++){
+                       
+                       s.appand(sb);
+                   }
+             
+                    
+                    
+                }else{
+                    s.push(sb);
                 }
-                int j = 0;
-                while (j != i) {
-                    s.push(str.charAt(i));
-                    s.add(0,str.charAt(i));
-                    j++;
-                    s.pop();
-                }
+
 
             }
+
         }
 
-
     }
+}
 }
