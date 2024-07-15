@@ -131,6 +131,21 @@ class Linked {
         return newLinked;
     }
 
+    public boolean isSame(Linked other) {
+        Node temp1 = this.first;
+        Node temp2 = other.first;
+
+        while (temp1 != null && temp2 != null) {
+            if (temp1.data != temp2.data) {
+                return false;
+            }
+            temp1 = temp1.link;
+            temp2 = temp2.link;
+        }
+
+        return temp1 == null && temp2 == null;
+    }
+
     public void display() {
         if (first == null) {
             System.out.println("The linked list is empty");
@@ -143,13 +158,13 @@ class Linked {
         }
         System.out.println("null");
     }
-} /**
- * CopyOfLinkedList
- */
+}
+
 public class CopyOfLinkedList {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Linked l1 = new Linked();
+        Linked l2 = new Linked();
         boolean exit = false;
 
         while (!exit) {
@@ -162,7 +177,8 @@ public class CopyOfLinkedList {
             System.out.println("6. Delete First");
             System.out.println("7. Delete Last");
             System.out.println("8. Display List");
-            System.out.println("9. Exit");
+            System.out.println("9. Check if Two Linked Lists are Same");
+            System.out.println("10. Exit");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
 
@@ -204,6 +220,21 @@ public class CopyOfLinkedList {
                     l1.display();
                     break;
                 case 9:
+                    System.out.println("Enter elements for the second linked list:");
+                    System.out.print("Enter number of elements: ");
+                    int n = sc.nextInt();
+                    for (int i = 0; i < n; i++) {
+                        System.out.print("Enter data: ");
+                        int data = sc.nextInt();
+                        l2.insertAtLast(data);
+                    }
+                    if (l1.isSame(l2)) {
+                        System.out.println("Both linked lists are the same.");
+                    } else {
+                        System.out.println("The linked lists are not the same.");
+                    }
+                    break;
+                case 10:
                     exit = true;
                     break;
                 default:
