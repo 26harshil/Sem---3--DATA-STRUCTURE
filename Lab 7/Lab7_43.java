@@ -1,39 +1,49 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
+import java.util.Stack;
 
-class Codechef
-{
-    public static void main(String[] args) {
-        throws java.lang.Exception
+public class Codechef {
 
-        Stack < Character > s = new Stack < > ();
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        // your code goes here
+        Scanner sc = new Scanner(System.in);
 
-        {
-            // your code goes here
-            String n = sc.next();
-            StringBuilder sb = new StringBuilder(n);
-           
-            for (int i = 0; i < n.length(); i++) {
+        int test = sc.nextInt();
 
-               if (n.charAt(i) == 'a' || n.charAt(i) == 'i' || n.charAt(i) == 'o' || n.charAt(i) == 'e' || n.charAt(i) == 'u') {
-                    
-                   for(int k=0; k<i; k++){
-                       
-                       s.appand(sb);
-                   }
-             
-                    
-                    
+        while(test > 0){
+            
+            int n = sc.nextInt();
+            String str = sc.next();
+
+            Stack<Character> s = new Stack<>();
+
+            StringBuilder ans = new StringBuilder();
+            for(int i = 0 ; i < str.length() ; i++){
+
+                if("aeiou".indexOf(str.charAt(i)) > -1){
+                    while(!s.isEmpty()){
+                        ans.append(s.pop());
+                    }
+                    ans.append(str.charAt(i));
+                   
+                    for(char c : ans.toString().toCharArray()){
+                        s.push(c);
+                    }
+                    ans.setLength(0);
                 }else{
-                    s.push(sb);
+                    s.push(str.charAt(i));
                 }
-
-
             }
 
+            while (!s.isEmpty()){
+                ans.append(s.pop());
+            }
+
+            System.out.println(ans.reverse().toString());
+            test--;
         }
 
     }
-}
 }
