@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 class Linkeof {
-    
     int size = 0;
+    int count = 0;
 
     class Node {
         int data;
@@ -12,87 +12,115 @@ class Linkeof {
             this.data = data;
             this.link = null;
         }
-
     }
+
     Node first = null;
-    Node last = null;   
-
-    public void insertATLast(int data) {
-        Node newNode = new Node(data);
-
-        if (first == null) {
-            first = newNode;
-            last = first;
-            first.link = first;
-            last.link = first;
-
-            return;
-        } else {
-
-            Node temp = first;
-
-            newNode.link = first;
-            while (temp.link != first) {
-
-                temp = temp.link;
-                     }
-            last = temp;
-            last.link  = newNode;
-          System.out.println(temp.data);
-        }
-    }
+    Node last = null;
 
     public void insertAtFirst(int data) {
         Node newNode = new Node(data);
 
         if (first == null) {
             first = newNode;
-            last = first;
+            last = newNode;
             first.link = first;
-            return;
-        } 
-
-            Node temp = first;
-
-            while (temp.link != first) {
-                temp = temp.link;
-            }
-            temp.link = newNode;
+        } else {
             newNode.link = first;
+            last.link = newNode;
             first = newNode;
-        
+        }
+
+        count++;
     }
 
-    // public void insertInOrderList(int data) {
-    // Node newNode = new Node(data);
-    // if (first == null || first.data >= newNode.data) {
-    // newNode.link = first;
-    // first = newNode;
-    // size++;
-    // return;
-    // }
+    public void insertAtLast(int data) {
+        Node newNode = new Node(data);
 
-    // Node pred = first;
-    // while (pred.link != null && pred.link.data < newNode.data) {
-    // pred = pred.link;
-    // }
-
-    // newNode.link = pred.link;
-    // pred.link = newNode;
-    // size++;
-    // }
-
-    public void makeCircular() {
         if (first == null) {
-            System.out.println("Linked list is empty");
+            first = newNode;
+            last = newNode;
+            first.link = first; // Point to itself
+        } else {
+            newNode.link = first;
+            last.link = newNode;
+            last = newNode;
+        }
+
+        count++;
+    }
+
+    public void insertAtAnyIndex(int data, int idx) {
+        Node newNode = new Node(data);
+
+        if (idx < 0 || idx > count) {
+            System.out.println("Invalid index");
+            return;
+        }
+
+        if (idx == 0) {
+            if (first == null) {
+                first = newNode;
+                last = newNode;
+                first.link = first;
+            } else {
+                newNode.link = first;
+                last.link = newNode;
+                first = newNode;
+            }
+        } else {
+            Node temp = first;
+            for (int i = 0; i < idx - 1; i++) {
+                temp = temp.link;
+            }
+
+            newNode.link = temp.link;
+            temp.link = newNode;
+            if (newNode.link == first) {
+                last = newNode;
+            }
+        }
+
+        count++;
+    }
+
+    public void deleteAtFirst() {
+        if (first == null) {
+            System.out.println("The linked list is empty");
+            return;
+        }
+        if (first == last) {
+            first = null;
+            last = null;
+            System.out.println("The linked list is empty now");
+            return;
+        }
+
+        Node temp = first.link;
+        first = temp;
+        last.link = first;
+
+        count--;
+    }
+
+    public void deleteAtLast() {
+        if (first == null) {
+            System.out.println("The linked list is empty");
+            return;
+        }
+        if (first == last) {
+            first = null;
+            last = null;
+            System.out.println("The linked list is empty now");
             return;
         }
         Node temp = first;
-        while (temp.link != null) {
+        while (temp.link != last) {
             temp = temp.link;
         }
         last = temp;
         last.link = first;
+
+        count--;
     }
 
     public void display() {
@@ -100,39 +128,75 @@ class Linkeof {
             System.out.println("Linked list is empty");
             return;
         }
+
         Node temp = first;
         int count = 0;
-            while (temp.link != first) {
-                System.out.print(temp.data + " -> ");
-                count++;
-                temp = temp.link;
-                    
-            } 
-            
-       
-            System.out.println(temp.data+ " -> (back to first)");
-            System.out.println("the number of a node is " + count);
+        do {
+            System.out.print(temp.data + " -> ");
+            temp = temp.link;
+            count++;
+        } while (temp != first);
 
-           
-   
+        System.out.println(" (back to first)");
+        System.out.println("The number of nodes is " + count);
     }
 }
 
-public class CircularLinkedList {
+public class CircularLL {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Linkeof list = new Linkeof();
+        int choice;
+        boolean running = true;
 
-        list.insertAtFirst(1);
-        list.insertAtFirst(2);
-        list.insertAtFirst(3);
-        list.insertAtFirst(4);
-        list.insertAtFirst(1);
-        list.insertAtFirst(2);
-        list.insertAtFirst(3);
-        list.insertAtFirst(999);
+        while (running) {
+            System.out.println("Menu:");
+            System.out.println("1. Insert at First");
+            System.out.println("2. Insert at Last");
+            System.out.println("3. Insert at Any Index");
+            System.out.println("4. Delete at First");
+            System.out.println("5. Delete at Last");
+            System.out.println("6. Display List");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
 
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter data to insert at first: ");
+                    int dataFirst = scanner.nextInt();
+                    list.insertAtFirst(dataFirst);
+                    break;
+                case 2:
+                    System.out.print("Enter data to insert at last: ");
+                    int dataLast = scanner.nextInt();
+                    list.insertAtLast(dataLast);
+                    break;
+                case 3:
+                    System.out.print("Enter data to insert at any index: ");
+                    int dataIndex = scanner.nextInt();
+                    System.out.print("Enter index: ");
+                    int index = scanner.nextInt();
+                    list.insertAtAnyIndex(dataIndex, index);
+                    break;
+                case 4:
+                    list.deleteAtFirst();
+                    break;
+                case 5:
+                    list.deleteAtLast();
+                    break;
+                case 6:
+                    list.display();
+                    break;
+                case 7:
+                    running = false;
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
 
-        list.display();
+        scanner.close();
     }
 }
