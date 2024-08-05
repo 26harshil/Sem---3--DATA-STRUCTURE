@@ -12,7 +12,7 @@
             Node temp2 = temp.rptr;
             temp.rptr = temp2.rptr;
    
-            //TO CHECK THAT THE THE NEXT NODES RPTR IS NOT NULL 
+            //TO CHECK THAT THE THE NEXT NODES RPTR IS NOT NULL  IF THERE IS NULL NODE WE CAN NOT GET THE VALUE OF LPTR
             if(temp2.rptr !=null){
 
                 temp2.rptr.lptr = temp;
