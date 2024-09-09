@@ -110,5 +110,5 @@ VALUES
 --Part – C:
 --1. Retrieve the names of employee along with their manager’s name from the Employee table.
      SELECT E.NAME AS EMPLOYEE_NAME,M.NAME AS MANGER
-	 FROM EMPLOYEE_MASTER E INNER JOIN  EMPLOYEE_MASTER M
+	 FROM EMPLOYEE_MASTER E left JOIN  EMPLOYEE_MASTER M
 	 ON M.EmployeeNo = E.ManagerNo
