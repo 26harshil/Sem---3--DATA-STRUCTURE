@@ -22,7 +22,19 @@ public class BST {
         }
         return root;
     }
+    public Node insert(Node root, int val) {
+        
+        
+        if (root == null)
+            return root= new Node(val);
 
+        else if (root.val < val) {
+            root.right =insert(root.right, val);
+        } else {
+            root.left = insert(root.left, val);
+        }
+        return root;
+    }
     public void inorder(Node root) {
         if (root == null) return;
         inorder(root.left);
