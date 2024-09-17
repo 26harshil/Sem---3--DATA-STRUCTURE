@@ -7,6 +7,8 @@ class Solution {
         if (size == 0) {
             return null;
         }
+          // Preorder: [1, 2, 4, 5, 3, 6, 7]
+          // Postorder: [4, 5, 2, 6, 7, 3, 1]
 
          TreeNode root = new TreeNode(preorder[preStart]);
         if (size == 1) {
