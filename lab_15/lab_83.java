@@ -77,6 +77,19 @@ public class BST {
 
         return min;
     }
+ public Node  findmin(Node root) {
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
+    }
+     public Node findmax(Node root) {
+        while (root.right != null) {
+            root = root.right;
+        }
+        return root;
+    }
+
 
   
 
